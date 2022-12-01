@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Work;
 use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
+use Inertia\Inertia;
 
 class WorkController extends Controller
 {
@@ -15,7 +16,12 @@ class WorkController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Works/Index', [
+            'works' => Work::all()->map(fn($works) => [
+                'id' => $works->id,
+                'title' => $works->title
+            ])
+        ]);
     }
 
     /**
