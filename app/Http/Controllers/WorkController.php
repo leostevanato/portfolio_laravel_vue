@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Work;
 use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 
 class WorkController extends Controller
@@ -31,7 +34,7 @@ class WorkController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Works/Create');
     }
 
     /**
@@ -42,7 +45,11 @@ class WorkController extends Controller
      */
     public function store(StoreWorkRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Work::create($validated);
+
+        return redirect()->route('works.index')->with('message', 'Work created successfully!');
     }
 
     /**
