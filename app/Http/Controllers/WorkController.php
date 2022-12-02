@@ -71,7 +71,7 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        //
+        return Inertia::render('Works/Edit', compact('work'));
     }
 
     /**
@@ -83,7 +83,10 @@ class WorkController extends Controller
      */
     public function update(UpdateWorkRequest $request, Work $work)
     {
-        //
+        $validated = $request->validated();
+        $work->update($validated);
+
+        return redirect()->route('works.edit', $work->id)->with('message', 'Work updated successfully!');
     }
 
     /**
