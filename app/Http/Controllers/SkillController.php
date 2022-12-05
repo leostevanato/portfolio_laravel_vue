@@ -68,7 +68,7 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
-        //
+        return Inertia::render('Skills/Edit', compact('skill'));
     }
 
     /**
@@ -80,7 +80,10 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        //
+        $validated = $request->validated();
+        $skill->update($validated);
+
+        return redirect()->route('skills.edit', $skill->id)->with('message', 'Skill updated successfully!');
     }
 
     /**
