@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Work;
 use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\File;
@@ -34,7 +35,9 @@ class WorkController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Works/Create');
+        return Inertia::render('Works/Create', [
+            'skills' => DB::table('skills')->select('id', 'title')->get()
+        ]);
     }
 
     /**
@@ -47,7 +50,11 @@ class WorkController extends Controller
     {
         $validated = $request->validated();
 
-        Work::create($validated);
+        $work = Work::create($validated);
+
+        $work->skills()->attach($request->skills);
+
+        $work->save();
 
         return redirect()->route('works.index')->with('message', 'Work created successfully!');
     }

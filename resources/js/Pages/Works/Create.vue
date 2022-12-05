@@ -2,6 +2,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import WorkForm from './Partials/WorkForm.vue';
+
+const props = defineProps({
+    skills: Object
+});
 </script>
 
 <template>
@@ -17,6 +21,7 @@ import WorkForm from './Partials/WorkForm.vue';
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <WorkForm
                         class="max-w-xl"
+                        :skills="skills"
                     />
                 </div>
             </div>

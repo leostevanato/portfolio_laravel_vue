@@ -8,14 +8,18 @@ import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
 import slugify from '@/Functions/slugify';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
 
 // If not editing then is creating
 const editing = (route().current('works.edit')) ? true : false;
 
 const props = defineProps({
     work: Object,
+    skills: Object,
     errors: Object
 });
+
+const checkedSkills = ref([]);
 
 const user = usePage().props.value.auth.user;
 
@@ -27,7 +31,8 @@ const form = useForm((editing)
         slug: '',
         description: null,
         url: null,
-        image: null
+        image: null,
+        skills: checkedSkills
     }
 );
 
@@ -90,9 +95,21 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.image" />
             </div>
 
+            <div>
+                <InputLabel value="Skills" />
+
+                <div class="grid grid-cols-2 gap-4 mt-1">
+                    <div v-for="skill in skills" :key="skill.id" class="flex items-center mb-4">
+                        <input type="checkbox" :id="'skill-'+skill.id" :value="skill.id" v-model="checkedSkills" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mr-2" />
+
+                        <InputLabel :for="`skill-${skill.id}`" :value="skill.title" />
+                    </div>
+                </div>
+            </div>
+
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-                
+
                 <IntetiaLinkButton :href="route('works.index')" :disabled="form.processing">Cancel</IntetiaLinkButton>
 
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
