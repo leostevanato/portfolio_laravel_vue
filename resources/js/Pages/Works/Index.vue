@@ -32,7 +32,7 @@ defineProps({
                                     Title
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <span class="sr-only">Editar</span>
+                                    <span class="sr-only">Edit</span>
                                 </th>
                             </tr>
                         </thead>
@@ -49,7 +49,7 @@ defineProps({
                                 <td class="px-6 py-4 text-right">
                                     <Link :href="route('works.edit', work.id)"
                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    Editar
+                                    Edit
                                     </Link>
                                 </td>
                             </tr>
