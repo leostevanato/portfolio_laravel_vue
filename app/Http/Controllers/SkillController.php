@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Skill;
 use App\Http\Requests\StoreSkillRequest;
 use App\Http\Requests\UpdateSkillRequest;
+use Inertia\Inertia;
 
 class SkillController extends Controller
 {
@@ -15,7 +16,12 @@ class SkillController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Skills/Index', [
+            'skills' => Skill::all()->map(fn($skills) => [
+                'id' => $skills->id,
+                'title' => $skills->title
+            ])
+        ]);
     }
 
     /**
