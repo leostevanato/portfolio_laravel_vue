@@ -31,7 +31,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Skills/Create');
     }
 
     /**
@@ -42,7 +42,11 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Skill::create($validated);
+
+        return redirect()->route('skills.index')->with('message', 'Skill created successfully!');
     }
 
     /**
