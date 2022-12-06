@@ -19,7 +19,9 @@ const props = defineProps({
     errors: Object
 });
 
-const checkedSkills = ref([]);
+const workSkills = (props.work !== undefined)? props.work.skills.map(e => e.id) : [];
+
+const checkedSkills = ref(workSkills);
 
 const user = usePage().props.value.auth.user;
 
@@ -42,9 +44,12 @@ const slugifyTitle = () => {
 };
 
 const submit = () => {
-    (editing)
-        ? form.patch(route('works.update', form))
-        : form.post(route('works.store'))
+    if (editing) {
+        form.skills = checkedSkills;
+        form.patch(route('works.update', form));
+    } else {
+        form.post(route('works.store'));
+    }
 };
 </script>
 
@@ -99,7 +104,7 @@ const submit = () => {
                 <InputLabel value="Skills" />
 
                 <div class="grid grid-cols-2 gap-4 mt-1">
-                    <div v-for="skill in skills" :key="skill.id" class="flex items-center mb-4">
+                    <div v-for="skill in skills" :key="skill.id" class="flex items-center">
                         <input type="checkbox" :id="'skill-'+skill.id" :value="skill.id" v-model="checkedSkills" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mr-2" />
 
                         <InputLabel :for="`skill-${skill.id}`" :value="skill.title" />

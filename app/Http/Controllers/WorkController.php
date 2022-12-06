@@ -78,7 +78,10 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        return Inertia::render('Works/Edit', compact('work'));
+        $props = compact('work');
+        $props['skills'] = DB::table('skills')->select('id', 'title')->get();
+
+        return Inertia::render('Works/Edit', $props);
     }
 
     /**
@@ -91,6 +94,15 @@ class WorkController extends Controller
     public function update(UpdateWorkRequest $request, Work $work)
     {
         $validated = $request->validated();
+
+        $skills_array = [];
+
+        foreach($request->skills as $skill) {
+            $skills_array[] = $skill;
+        }
+        
+        $work->skills()->sync($skills_array);
+
         $work->update($validated);
 
         return redirect()->route('works.edit', $work->id)->with('message', 'Work updated successfully!');
