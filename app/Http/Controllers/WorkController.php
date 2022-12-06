@@ -29,6 +29,26 @@ class WorkController extends Controller
     }
 
     /**
+     * Display a listing of the resource in frontend.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        return Inertia::render('Works/List', [
+            'works' => Work::all()->map(fn($works) => [
+                'id' => $works->id,
+                'title' => $works->title,
+                'slug' => $works->slug,
+                'description' => $works->description,
+                'url' => $works->url,
+                'image' => $works->image,
+                'skills' => $works->skills->makeHidden(['created_at', 'updated_at', 'pivot'])
+            ])
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
