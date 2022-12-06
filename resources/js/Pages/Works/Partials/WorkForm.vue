@@ -8,6 +8,7 @@ import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
 import slugify from '@/Functions/slugify';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
+import { computed } from '@vue/reactivity';
 import { ref } from 'vue';
 
 // If not editing then is creating
@@ -19,7 +20,7 @@ const props = defineProps({
     errors: Object
 });
 
-const workSkills = (props.work !== undefined)? props.work.skills.map(e => e.id) : [];
+const workSkills = (props.work !== undefined) ? props.work.skills.map(e => e.id) : [];
 
 const checkedSkills = ref(workSkills);
 
@@ -37,6 +38,11 @@ const form = useForm((editing)
         skills: checkedSkills
     }
 );
+
+
+const buttonCancelBackText = computed(() => {
+    return form.wasSuccessful ? "Back" : "Cancel"
+});
 
 const slugifyTitle = () => {
     // TODO: implement check if slug exists add number
@@ -105,7 +111,8 @@ const submit = () => {
 
                 <div class="grid grid-cols-2 gap-4 mt-1">
                     <div v-for="skill in skills" :key="skill.id" class="flex items-center">
-                        <input type="checkbox" :id="'skill-'+skill.id" :value="skill.id" v-model="checkedSkills" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mr-2" />
+                        <input type="checkbox" :id="'skill-' + skill.id" :value="skill.id" v-model="checkedSkills"
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mr-2" />
 
                         <InputLabel :for="`skill-${skill.id}`" :value="skill.title" />
                     </div>
@@ -115,7 +122,8 @@ const submit = () => {
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
-                <IntetiaLinkButton :href="route('works.index')" :disabled="form.processing">Cancel</IntetiaLinkButton>
+                <IntetiaLinkButton :href="route('works.index')" :disabled="form.processing">{{ buttonCancelBackText }}
+                </IntetiaLinkButton>
 
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
                     <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
