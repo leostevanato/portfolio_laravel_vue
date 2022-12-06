@@ -109,7 +109,7 @@ const submit = () => {
             <div>
                 <InputLabel value="Skills" />
 
-                <div class="grid grid-cols-2 gap-4 mt-1">
+                <div class="grid grid-cols-3 gap-4 mt-1 px-4 py-2 border border-gray-300 rounded-md">
                     <div v-for="skill in skills" :key="skill.id" class="flex items-center">
                         <input type="checkbox" :id="'skill-' + skill.id" :value="skill.id" v-model="checkedSkills"
                             class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 mr-2" />
