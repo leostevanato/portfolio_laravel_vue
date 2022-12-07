@@ -18,20 +18,18 @@ function workImage(img) {
 
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div class="max-w-7xl mt-6 mx-12 p-12 bg-white shadow-md overflow-hidden sm:rounded-lg">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Works</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque qui laboriosam esse velit ut animi,
-                quaerat voluptatem quam totam reprehenderit iusto! Culpa voluptates dolor atque nihil ullam rerum,
-                doloribus possimus?</p>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Work portfolio</h2>
+            <p>Some work I've done over the years. In works with complex layouts or designs, usually I receive an static version of the layout (Photoshop, Figma, Adobe XD, JPG or PNG images, etc) from the designer and do my best to faithfully reproduce it using HTML and CSS. It's also commom that I work with the designers to be sure that the layout will be functional and easy for the end user.</p>
 
             <div v-if="works.length > 0">
                 <div class="bg-white">
                     <div class="mx-auto max-w-2xl py-6 px-4 lg:max-w-7xl">
-                        <h2 class="sr-only">Works</h2>
+                        <h2 class="sr-only">Work portfolio</h2>
 
                         <div
                             class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                            <a v-for="work in works" :key="work.id" href="#" class="group">
-                                <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+                            <a v-for="work in works" :key="work.id" href="#" class="group border border-gray-300 rounded-md pb-4 px-4">
+                                <div v-if="work.image" class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
                                     v-html="workImage(work.image)">
                                 </div>
                                 <h3 class="mt-4 text-md text-gray-700 font-bold">{{ work.title }}</h3>
@@ -42,10 +40,10 @@ function workImage(img) {
 
                                 <div v-if="work.skills.length > 0"
                                     class="mt-4 border border-gray-300 rounded-md bg-gray-50 p-2">
-                                    <p class="text-lg font-medium text-gray-900">
+                                    <p class="text-md font-medium text-gray-900">
                                         Skills
                                     </p>
-                                    <div v-if="work.skills.length > 0" class="grid grid-cols-3 gap-2 mt-1">
+                                    <div v-if="work.skills.length > 0" class="flex flex-wrap content-start gap-2 mt-1">
                                         <div v-for="skill in work.skills" :key="skill.id"
                                             class="px-2 py-1 border border-gray-300 rounded-md bg-white">
                                             {{ skill.title }}
