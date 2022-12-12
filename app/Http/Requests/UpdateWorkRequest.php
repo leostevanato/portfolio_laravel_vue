@@ -24,7 +24,7 @@ class UpdateWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer|max:20',
+            'portfolio_id' => 'required|integer|max:20',
             'title' => 'required|string|max:60',
             'slug' => 'required|unique:works,slug,'. $this->work->id .'|max:60',
             'description' => 'nullable',
