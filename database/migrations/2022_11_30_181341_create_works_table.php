@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('portfolio_id')->constrained();
             $table->timestamps();
             $table->string('title', 60);
             $table->string('slug', 60)->unique();
