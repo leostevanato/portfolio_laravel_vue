@@ -10,7 +10,7 @@ class Work extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'portfolio_id',
         'title',
         'slug',
         'description',
@@ -25,9 +25,9 @@ class Work extends Model
      */
     protected $with = ['skills'];
 
-    public function user()
+    public function portfolio()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Portfolio::class);
     }
 
     public function skills() {
