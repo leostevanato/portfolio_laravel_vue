@@ -26,7 +26,7 @@ class UpdatePortfolioRequest extends FormRequest
         return [
             'user_id' => 'required|integer|max:20',
             'title' => 'required|string|max:60',
-            'lang' => 'required|string|max:5',
+            'language' => 'required|string|max:2',
             'description' => 'nullable'
         ];
     }

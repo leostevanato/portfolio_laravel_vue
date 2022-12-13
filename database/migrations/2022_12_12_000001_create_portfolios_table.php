@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->string('title', 60);
-            $table->string('lang', 5);
+            $table->string('language', 2);
             $table->text('description')->nullable();
         });
     }

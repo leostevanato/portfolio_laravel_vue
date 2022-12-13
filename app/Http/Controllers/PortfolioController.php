@@ -21,7 +21,7 @@ class PortfolioController extends Controller
             'portfolios' => Portfolio::all()->map(fn($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
-                'lang' => $portfolios->lang
+                'language' => $portfolios->language
             ])
         ]);
     }
@@ -37,7 +37,7 @@ class PortfolioController extends Controller
             'portfolios' => Portfolio::all()->map(fn($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
-                'lang' => $portfolios->lang,
+                'language' => $portfolios->language,
                 'description' => $portfolios->description,
                 'works' => $portfolios->works->makeHidden(['created_at', 'updated_at', 'pivot'])
             ])
