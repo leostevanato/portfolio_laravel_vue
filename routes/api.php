@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get("languages", [LanguageController::class, "index"]);
+Route::get("languages/{id_code}", [LanguageController::class, "getLanguage"]);

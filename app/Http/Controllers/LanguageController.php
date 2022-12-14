@@ -25,6 +25,32 @@ class LanguageController extends Controller
     }
 
     /**
+     * Get the specified resource.
+     *
+     * @param  int|string  $id_code
+     * @return \Illuminate\Http\Response
+     */
+    public function getLanguage($id_code=null)
+    {
+        if(is_numeric($id_code)) {
+            $key = "id";
+            $id_code = intval($id_code);
+        } else {
+            $key = "code";
+        }
+        
+        $languages_json = json_decode(file_get_contents(storage_path() . "/languages.json"), true);
+        
+        foreach($languages_json as $item) {
+            if($item[$key] === $id_code) {
+                return json_encode($item);
+            }
+        }
+
+        return json_encode(["key" => $key, "idCode" => $id_code]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
