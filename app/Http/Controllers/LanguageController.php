@@ -15,6 +15,8 @@ class LanguageController extends Controller
     {
         $languages_json = json_decode(file_get_contents(storage_path() . "/languages.json"), true);
 
+        $languages = array();
+
         foreach($languages_json as $item) {
             $languages[] = array("value" => $item["code"], "text" => $item["name"]);
         }
