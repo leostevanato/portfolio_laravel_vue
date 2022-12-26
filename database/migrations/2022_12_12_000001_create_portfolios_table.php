@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title', 60);
             $table->string('language', 2);
             $table->text('description')->nullable();
+            $table->boolean('visible')->default(false);
         });
     }
 
