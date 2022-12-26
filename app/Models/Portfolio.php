@@ -13,7 +13,8 @@ class Portfolio extends Model
         'user_id',
         'title',
         'language',
-        'description'
+        'description',
+        'visible'
     ];
 
     /**
@@ -30,6 +31,6 @@ class Portfolio extends Model
 
     public function works()
     {
-        return $this->hasMany(Work::class);
+        return $this->belongsToMany(Work::class);
     }
 }
