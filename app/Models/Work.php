@@ -10,12 +10,12 @@ class Work extends Model
     use HasFactory;
 
     protected $fillable = [
-        'portfolio_id',
         'title',
         'slug',
         'description',
         'url',
-        'image'
+        'image',
+        'visible'
     ];
 
     /**
@@ -27,7 +27,7 @@ class Work extends Model
 
     public function portfolio()
     {
-        return $this->belongsTo(Portfolio::class);
+        return $this->belongsToMany(Portfolio::class);
     }
 
     public function skills() {
