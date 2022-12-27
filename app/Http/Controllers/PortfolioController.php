@@ -27,19 +27,18 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Display a listing of the resource in frontend.
+     * Display a listing of the resource in the frontend.
      *
      * @return \Illuminate\Http\Response
      */
     public function list()
     {
         return Inertia::render('Portfolios/List', [
-            'portfolios' => Portfolio::all()->map(fn($portfolios) => [
+            'portfolios' => Portfolio::all()->where('visible', 1)->map(fn($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
                 'language' => $portfolios->language,
-                'description' => $portfolios->description,
-                'works' => $portfolios->works->makeHidden(['created_at', 'updated_at', 'pivot'])
+                'description' => $portfolios->description
             ])
         ]);
     }
@@ -75,9 +74,11 @@ class PortfolioController extends Controller
      * @param  \App\Models\Portfolio  $portfolio
      * @return \Illuminate\Http\Response
      */
-    public function show(Portfolio $portfolio)
+    public function show($id)
     {
-        //
+        return Inertia::render('Portfolios/Show', [
+            'portfolio' => Portfolio::where('visible', 1)->findOrFail($id)
+        ]);
     }
 
     /**
