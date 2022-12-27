@@ -17,9 +17,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [PortfolioController::class, 'list'])->name('portfolio');
+Route::get('/', [PortfolioController::class, 'list'])->name('portfolios.list');
+Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
-Route::get('/dashboard', function () {
+Route::redirect('/admin', '/admin/dashboard');
+
+Route::get('/admin/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

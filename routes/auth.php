@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -61,7 +61,9 @@ Route::middleware('auth')->group(function () {
                 ->name('logout');
 
 
-    Route::resource('portfolios', PortfolioController::class);
+    Route::resource('portfolios', PortfolioController::class)->except([
+        'show'
+    ]);
 
     Route::resource('works', WorkController::class);
     
