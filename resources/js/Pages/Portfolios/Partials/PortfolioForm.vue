@@ -1,4 +1,5 @@
 <script setup>
+import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import IntetiaLinkButton from '@/Components/IntetiaLinkButton.vue';
@@ -29,9 +30,12 @@ const form = useForm((editing)
         user_id: user.id,
         title: '',
         language: '',
-        description: null
+        description: null,
+        visible: false
     }
 );
+
+form.visible = form.visible == 1 ? true : form.visible;
 
 const buttonCancelBackText = computed(() => {
     return form.wasSuccessful ? "Back" : "Cancel"
@@ -61,6 +65,14 @@ function isNull(value) {
                 <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus />
 
                 <InputError class="mt-2" :message="form.errors.title" />
+            </div>
+
+            <div>
+                <InputLabel for="visible" value="Visible" class="inline-block mr-2" />
+
+                <Checkbox name="visible" v-model:checked="form.visible" />
+
+                <InputError class="mt-2" :message="form.errors.visible" />
             </div>
 
             <div>
