@@ -34,7 +34,7 @@ class PortfolioController extends Controller
     public function list()
     {
         return Inertia::render('Portfolios/List', [
-            'portfolios' => Portfolio::all()->where('visible', 1)->map(fn($portfolios) => [
+            'portfolios' => Portfolio::where('visible', 1)->get()->map(fn($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
                 'language' => $portfolios->language,
