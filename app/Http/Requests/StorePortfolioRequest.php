@@ -27,7 +27,8 @@ class StorePortfolioRequest extends FormRequest
             'user_id' => 'required|integer|max:20',
             'title' => 'required|string|max:60',
             'language' => 'required|string|max:2',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'visible' => 'boolean::0,1,true,false'
         ];
     }
 }
