@@ -11,7 +11,7 @@ defineProps({
     <Head title="Portfolios" />
 
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div class="max-w-7xl mt-6 mx-12 p-12 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="max-w-7xl mt-6 mx-12 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Portfolios</h2>
 
             <div v-if="portfolios.length > 0">
