@@ -1,4 +1,5 @@
 <script setup>
+import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import IntetiaLinkButton from '@/Components/IntetiaLinkButton.vue';
@@ -16,6 +17,7 @@ const editing = (route().current('works.edit')) ? true : false;
 
 const props = defineProps({
     work: Object,
+    portfolios: Object,
     skills: Object,
     errors: Object
 });
@@ -30,11 +32,13 @@ const form = useForm((editing)
     ? props.work
     : {
         user_id: user.id,
+        portfolio_id: null,
         title: '',
         slug: '',
         description: null,
         url: null,
         image: null,
+        visible: true,
         skills: checkedSkills
     }
 );
@@ -45,7 +49,7 @@ const buttonCancelBackText = computed(() => {
 });
 
 const slugifyTitle = () => {
-    // TODO: implement check if slug exists add number
+    // TODO: implement check if slug exists. If yes, add number.
     form.slug = slugify(form.title);
 };
 
@@ -61,10 +65,37 @@ const submit = () => {
 
 <template>
     <section>
-        <form @submit.prevent="submit" class="space-y-6">
+        {{ form }}
+        <p v-if="!portfolios || portfolios.length <= 0">No portfolios found.</p>
+        <form v-else @submit.prevent="submit" class="space-y-6">
             <input type="hidden" id="user_id" name="user_id" v-model="form.user_id">
 
+            <input v-if="editing" type="hidden" id="portfolio_id" name="portfolio_id" v-model="form.portfolio_id">
+
             <div class="!mt-0">
+                <InputLabel for="portfolio" value="Parent portfolio" />
+                
+                <select name="portfolio"
+                    class="mt-1 block border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                    v-model="form.portfolio_id"
+                    required autofocus>
+                    <option v-for="option in portfolios" :value="option.id">
+                        {{ option.title }}
+                    </option>
+                </select>
+
+                <InputError class="mt-2" :message="form.errors.portfolio" />
+            </div>
+            
+            <div>
+                <InputLabel for="visible" value="Visible" class="inline-block mr-2" />
+
+                <Checkbox name="visible" v-model:checked="form.visible" />
+
+                <InputError class="mt-2" :message="form.errors.visible" />
+            </div>
+
+            <div>
                 <InputLabel for="title" value="Title" />
 
                 <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus />
