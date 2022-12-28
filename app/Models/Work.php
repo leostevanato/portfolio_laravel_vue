@@ -25,7 +25,7 @@ class Work extends Model
      */
     protected $with = ['skills'];
 
-    public function portfolio()
+    public function portfolios()
     {
         return $this->belongsToMany(Portfolio::class);
     }
