@@ -24,12 +24,12 @@ class UpdateWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'portfolio_id' => 'required|integer|max:20',
             'title' => 'required|string|max:60',
             'slug' => 'required|unique:works,slug,'. $this->work->id .'|max:60',
             'description' => 'nullable',
             'url' => 'nullable|max:200',
-            'image' => 'nullable|max:50'
+            'image' => 'nullable|max:50',
+            'visible' => 'boolean::0,1,true,false'
         ];
     }
 }
