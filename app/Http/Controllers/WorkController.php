@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Work;
 use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
+use App\Models\Portfolio;
+use App\Models\Skill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -35,8 +37,17 @@ class WorkController extends Controller
      */
     public function create()
     {
+        $currentUserPortfolios = Portfolio::select('id', 'title', 'language')->where('user_id', auth()->user()->id)->get();
+
+        $portfolios = array();
+
+        foreach($currentUserPortfolios as $portfolio) {
+            $portfolios[] = array('id' => $portfolio['id'], 'title' => $portfolio['title'] .' ('. $portfolio['language'] .')');
+        }
+
         return Inertia::render('Works/Create', [
-            'skills' => DB::table('skills')->select('id', 'title')->get()
+            'portfolios' => $portfolios,
+            'skills' => Skill::select('id', 'title')->get()
         ]);
     }
 
@@ -52,6 +63,7 @@ class WorkController extends Controller
 
         $work = Work::create($validated);
 
+        $work->portfolios()->attach($request->portfolio_id);
         $work->skills()->attach($request->skills);
 
         $work->save();
@@ -79,7 +91,7 @@ class WorkController extends Controller
     public function edit(Work $work)
     {
         $props = compact('work');
-        $props['skills'] = DB::table('skills')->select('id', 'title')->get();
+        $props['skills'] = Skill::select('id', 'title')->get();
 
         return Inertia::render('Works/Edit', $props);
     }
