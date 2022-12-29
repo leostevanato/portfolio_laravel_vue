@@ -9,7 +9,7 @@ import TextInput from '@/Components/TextInput.vue';
 import { useFetch } from '@/Functions/fetch';
 import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { computed } from '@vue/reactivity';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 // If not editing then is creating
 const editing = (route().current('portfolios.edit')) ? true : false;
@@ -52,6 +52,13 @@ const submit = () => {
 function isNull(value) {
     return typeof value !== "undefined" && (typeof value !== "object" || !value);
 }
+
+// Example code of how to watch changes and update accordingly
+// watch(() => form.recentlySuccessful, (newFormRecentlySuccessful) => {
+//     if (form.wasSuccessful && !newFormRecentlySuccessful) {
+//         // window.location.reload();
+//     }
+// });
 </script>
 
 <template>
@@ -95,7 +102,7 @@ function isNull(value) {
             <div>
                 <InputLabel for="description" value="Description" />
 
-                <TextArea id="description" class="mt-1 block w-full" v-model="form.description" />
+                <TextArea id="description" class="mt-1 block w-full" v-model="form.description" rows="6" />
 
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
