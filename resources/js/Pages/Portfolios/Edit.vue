@@ -5,7 +5,6 @@ import PortfolioForm from './Partials/PortfolioForm.vue';
 
 const props = defineProps({
     portfolio: Object,
-    skills: Object,
     errors: Object
 });
 </script>
@@ -24,7 +23,6 @@ const props = defineProps({
                     <PortfolioForm
                         class="max-w-xl"
                         :portfolio="portfolio"
-                        :skills="skills"
                         :errors="errors"
                     />
                 </div>
