@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->timestamps();
             $table->string('title', 60);
             $table->string('language', 2);
             $table->text('description')->nullable();
             $table->boolean('visible')->default(false);
+            $table->timestamps();
         });
     }
 
