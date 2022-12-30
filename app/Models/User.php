@@ -46,4 +46,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Portfolio::class);
     }
+
+    /**
+     * Accessor for returning a list of portfolios with id and title + language.
+     */
+    public function getListPortfoliosAttribute()
+    {
+        $userPortfolios = $this->portfolios;
+
+        $portfolios = array();
+
+        foreach($userPortfolios as $portfolio) {
+            $portfolios[] = array('id' => $portfolio['id'], 'title' => $portfolio['title'] .' ('. $portfolio['language'] .')');
+        }
+
+        return $portfolios;
+    }
 }
