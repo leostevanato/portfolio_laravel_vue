@@ -63,7 +63,6 @@ class WorkController extends Controller
 
         $work = Work::create($validated);
 
-        $work->portfolios()->attach($request->portfolio_id);
         $work->skills()->attach($request->skills);
 
         $work->save();
@@ -91,6 +90,7 @@ class WorkController extends Controller
     public function edit(Work $work)
     {
         $props = compact('work');
+        $props['portfolios'] = auth()->user()->list_portfolios;
         $props['skills'] = Skill::select('id', 'title')->get();
 
         return Inertia::render('Works/Edit', $props);

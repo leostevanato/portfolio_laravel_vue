@@ -43,6 +43,7 @@ const form = useForm((editing)
     }
 );
 
+form.visible = form.visible == 1 ? true : form.visible;
 
 const buttonCancelBackText = computed(() => {
     return form.wasSuccessful ? "Back" : "Cancel"
@@ -66,11 +67,11 @@ const submit = () => {
 <template>
     <section>
         {{ form }}
-        <p v-if="!portfolios || portfolios.length <= 0">No portfolios found.</p>
+        <p v-if="!portfolios || portfolios.length <= 0">No works found.</p>
         <form v-else @submit.prevent="submit" class="space-y-6">
             <input type="hidden" id="user_id" name="user_id" v-model="form.user_id">
 
-            <input v-if="editing" type="hidden" id="portfolio_id" name="portfolio_id" v-model="form.portfolio_id">
+            <input type="hidden" id="portfolio_id" name="portfolio_id" v-model="form.portfolio_id">
 
             <div class="!mt-0">
                 <InputLabel for="portfolio" value="Parent portfolio" />

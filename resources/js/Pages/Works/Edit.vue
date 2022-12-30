@@ -5,6 +5,7 @@ import WorkForm from './Partials/WorkForm.vue';
 
 const props = defineProps({
     work: Object,
+    portfolios: Object,
     skills: Object,
     errors: Object
 });
@@ -24,6 +25,7 @@ const props = defineProps({
                     <WorkForm
                         class="max-w-xl"
                         :work="work"
+                        :portfolios="portfolios"
                         :skills="skills"
                         :errors="errors"
                     />
