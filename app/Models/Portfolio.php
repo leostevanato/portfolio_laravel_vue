@@ -22,7 +22,7 @@ class Portfolio extends Model
      *
      * @var array
      */
-    protected $with = ['works'];
+    protected $with = ['works:id,title,slug,description,url,image,visible'];
 
     public function user()
     {
@@ -31,6 +31,6 @@ class Portfolio extends Model
 
     public function works()
     {
-        return $this->belongsToMany(Work::class);
+        return $this->hasMany(Work::class);
     }
 }

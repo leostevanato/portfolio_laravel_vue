@@ -10,6 +10,7 @@ class Work extends Model
     use HasFactory;
 
     protected $fillable = [
+        'portfolio_id',
         'title',
         'slug',
         'description',
@@ -23,11 +24,11 @@ class Work extends Model
      *
      * @var array
      */
-    protected $with = ['skills'];
-
-    public function portfolios()
+    protected $with = ['skills:id,title'];
+    
+    public function portfolio()
     {
-        return $this->belongsToMany(Portfolio::class);
+        return $this->belongsTo(Portfolio::class);
     }
 
     public function skills() {
