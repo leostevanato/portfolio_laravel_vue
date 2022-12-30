@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('portfolio_id')->constrained();
             $table->string('title', 60);
             $table->string('slug', 60)->unique();
             $table->text('description')->nullable();
             $table->string('url', 200)->nullable();
             $table->string('image', 50)->nullable();
             $table->boolean('visible')->default(true);
+            $table->timestamps();
         });
     }
 
