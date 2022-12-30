@@ -22,7 +22,7 @@ class Portfolio extends Model
      *
      * @var array
      */
-    protected $with = ['works:id,title,slug,description,url,image,visible'];
+    protected $with = ['works:id,portfolio_id,title,slug,description,url,image,visible'];
 
     public function user()
     {
