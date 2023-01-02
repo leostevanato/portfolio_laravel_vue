@@ -20,7 +20,8 @@ function portfolioImage(img) {
         <div class="max-w-7xl mt-6 mx-12 p-12 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <div v-if="portfolio">
                 <!-- {{ portfolio }} -->
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ portfolio.title }} <span v-if="portfolio.language">({{ portfolio.language }})</span></h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ portfolio.title }} <span
+                        v-if="portfolio.language">({{ portfolio.language }})</span></h2>
 
                 <div class="bg-white">
                     <div class="mx-auto max-w-2xl py-2 lg:max-w-7xl">
@@ -28,26 +29,31 @@ function portfolioImage(img) {
                             {{ portfolio.description }}
                         </p>
 
-                        <div
-                            class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                            <div v-if="portfolio.works">
-                                <div v-if="portfolio.works.length > 0"
-                                    class="mt-4 border border-gray-300 rounded-md bg-gray-50 p-2">
-                                    <p class="text-md font-medium text-gray-900">Works</p>
+                        <div v-if="portfolio.works && portfolio.works.length > 0"
+                            class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                            <div v-for="work in portfolio.works" :key="work.id"
+                                class="mt-4 border border-gray-300 rounded-md bg-gray-50 p-2">
 
-                                    <div v-if="portfolio.works.length > 0"
-                                        class="flex flex-wrap content-start gap-2 mt-1">
-                                        <div v-if="portfolio.image"
-                                            class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
-                                            v-html="portfolioImage(portfolio.image)">
-                                        </div>
-                                        <div v-for="work in portfolio.works" :key="work.id"
-                                            class="px-2 py-1 border border-gray-300 rounded-md bg-white">
-                                            <h4 class="mt-4 text-md text-gray-700 font-bold">
-                                                {{ work.title }}
-                                            </h4>
-                                            <p v-if="work.description" class="mt-4 text-lg font-medium text-gray-900">{{ work.description }}</p>
-                                            <p v-if="work.url" class="mt-1 text-md text-gray-700">{{ work.url }}</p>
+                                <div class="flex flex-wrap content-start gap-2">
+                                    <div
+                                        class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+                                        v-html="portfolioImage(work.image)">
+                                    </div>
+                                    <div class="w-full px-2 py-1 border border-gray-300 rounded-md bg-white">
+                                        <h4 class="text-lg text-gray-700 font-bold">
+                                            {{ work.title }}
+                                        </h4>
+                                        <p v-if="work.url" class="mt-1 text-base text-gray-700">
+                                            <a :href=work.url class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ work.url }}</a>
+                                        </p>
+                                        <p v-if="work.description" class="mt-3 text-lg font-medium text-gray-900">
+                                            {{ work.description }}
+                                        </p>
+                                    </div>
+                                    <div v-if="work.skills.length > 0" class="flex flex-wrap content-start gap-3 mt-1 p-2 border border-gray-300 rounded-md bg-white w-full">
+                                        <p class="w-full text-base text-gray-700 font-bold">Skills</p>
+                                        <div v-for="skill in work.skills" :key="skill.id" class="px-2 py-1 bg-gray-200 text-center rounded text-sm">
+                                            {{ skill.title }}
                                         </div>
                                     </div>
                                 </div>
