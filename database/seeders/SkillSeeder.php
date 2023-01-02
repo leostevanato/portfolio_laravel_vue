@@ -12,8 +12,7 @@ class SkillSeeder extends Seeder
     static $skills = [
         'PHP',
         'MySQL',
-        'HTML',
-        'CSS',
+        'HTML/CSS',
         'SASS',
         'JavaScript',
         'jQuery',
