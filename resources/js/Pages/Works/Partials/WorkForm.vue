@@ -66,7 +66,6 @@ const submit = () => {
 
 <template>
     <section>
-        {{ form }}
         <p v-if="!portfolios || portfolios.length <= 0">No works found.</p>
         <form v-else @submit.prevent="submit" class="space-y-6">
             <input type="hidden" id="user_id" name="user_id" v-model="form.user_id">
@@ -117,7 +116,7 @@ const submit = () => {
             <div>
                 <InputLabel for="description" value="Description" />
 
-                <TextArea id="description" class="mt-1 block w-full" v-model="form.description" />
+                <TextArea id="description" class="mt-1 block w-full" v-model="form.description" rows="6" />
 
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
