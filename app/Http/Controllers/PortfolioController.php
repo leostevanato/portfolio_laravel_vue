@@ -18,7 +18,7 @@ class PortfolioController extends Controller
     public function index()
     {
         return Inertia::render('Portfolios/Index', [
-            'portfolios' => Portfolio::all()->map(fn($portfolios) => [
+            'portfolios' => Portfolio::all()->map(fn ($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
                 'language' => $portfolios->language
@@ -34,7 +34,7 @@ class PortfolioController extends Controller
     public function list()
     {
         return Inertia::render('Portfolios/List', [
-            'portfolios' => Portfolio::where('visible', 1)->get()->map(fn($portfolios) => [
+            'portfolios' => Portfolio::where('visible', 1)->get()->map(fn ($portfolios) => [
                 'id' => $portfolios->id,
                 'title' => $portfolios->title,
                 'language' => $portfolios->language,
@@ -77,7 +77,9 @@ class PortfolioController extends Controller
     public function show($id)
     {
         return Inertia::render('Portfolios/Show', [
-            'portfolio' => Portfolio::where('visible', 1)->findOrFail($id)
+            'portfolio' => Portfolio::select('id', 'title', 'language', 'description')->where('visible', 1)->with(['works' => function($query) {
+                $query->select('id','portfolio_id','title','slug','description','url','image')->where('visible', 1);
+            }])->findOrFail($id)
         ]);
     }
 
