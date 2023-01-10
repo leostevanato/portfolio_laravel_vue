@@ -6,6 +6,7 @@ use App\Models\Portfolio;
 use App\Http\Requests\StorePortfolioRequest;
 use App\Http\Requests\UpdatePortfolioRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class PortfolioController extends Controller
@@ -50,6 +51,11 @@ class PortfolioController extends Controller
      */
     public function create()
     {
+        // Code to consume internal API
+        // $request = Request::create(url('/api/languages'), 'GET');
+        // $response = app()->handle($request)->getData();
+        // dd($response);
+
         return Inertia::render('Portfolios/Create');
     }
 
