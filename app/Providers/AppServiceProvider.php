@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        if(App::environment('production')) {
+            $this->app->bind('path.public', function() {
+                return realpath(base_path().'/public');
+            });
+        }
     }
 
     /**
