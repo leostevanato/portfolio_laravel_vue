@@ -20,7 +20,7 @@ use Inertia\Inertia;
 Route::get('/', [PortfolioController::class, 'list'])->name('portfolios.list');
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
-Route::redirect('/admin', '/admin/dashboard');
+Route::redirect('/admin', 'admin/dashboard');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Dashboard');
