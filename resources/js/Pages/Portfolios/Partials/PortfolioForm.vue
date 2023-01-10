@@ -20,8 +20,9 @@ const props = defineProps({
 });
 
 const user = usePage().props.value.auth.user;
+const url = usePage().props.value.ziggy.url; 
 
-const LANGUAGES_API_URL = "/api/languages";
+const LANGUAGES_API_URL = url + "/api/languages";
 const languagesJSON = ref(useFetch(LANGUAGES_API_URL));
 
 const form = useForm((editing)
