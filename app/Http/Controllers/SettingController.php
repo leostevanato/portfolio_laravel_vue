@@ -9,15 +9,35 @@ use Inertia\Inertia;
 class SettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display settings form.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Inertia\Response
      */
-    public function index()
+    public function edit(Request $request)
     {
-        return Inertia::render('Settings/Index', [
+        return Inertia::render('Settings/Edit', [
             'settings' => Setting::all()
         ]);
+    }
+
+    /**
+     * Update settings information.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
+    {
+        return $request->all();
+
+        // if ($request->user()->isDirty('email')) {
+        //     $request->user()->email_verified_at = null;
+        // }
+
+        // $request->user()->save();
+
+        // return Redirect::route('profile.edit');
     }
 
     /**
@@ -26,9 +46,9 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        return $request->all();
+    // public function store(Request $request)
+    // {
+    //     return $request->all();
         /**
          * Upsert method arguments:
          *  - First: values to insert or update
@@ -43,5 +63,5 @@ class SettingController extends Controller
         //     ['name'],
         //     ['value']
         // );
-    }
+    // }
 }

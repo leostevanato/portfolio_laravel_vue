@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::resource('skills', SkillController::class);
 
     Route::resource('settings', SettingController::class)->only([
-        'index', 'store'
-    ]);;
+        // 'index', 'store'
+        'edit', 'update'
+    ]);
 });
